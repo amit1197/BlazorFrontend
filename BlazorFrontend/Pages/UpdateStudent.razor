@@ -150,7 +150,7 @@ else if (isStudentNotFound)
         {
             try
             {
-                var response = await HttpClient.PutAsJsonAsync($"https://localhost:7124/api/StudentApi/{student.StudentId}", student);
+                var response = await HttpClient.PutAsJsonAsync($"http://localhost:5289/api/Student/UpdateStudent/{ student.StudentId}", student);
                 if (response.IsSuccessStatusCode)
                 {
                     NavigationManager.NavigateTo("/fetchstudents");
