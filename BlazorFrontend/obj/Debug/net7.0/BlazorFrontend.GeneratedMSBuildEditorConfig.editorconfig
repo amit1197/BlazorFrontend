@@ -28,8 +28,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/workspace/BlazorFrontend/BlazorFrontend/Pages/DatabaseSeeding.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGF0YWJhc2VTZWVkaW5nLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/BlazorFrontend/BlazorFrontend/Pages/DatabaseTruncate.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGF0YWJhc2VUcnVuY2F0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/workspace/BlazorFrontend/BlazorFrontend/Pages/DeleteStudent.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGVsZXRlU3R1ZGVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/workspace/BlazorFrontend/BlazorFrontend/Pages/DownloadCsvComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG93bmxvYWRDc3ZDb21wb25lbnQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/workspace/BlazorFrontend/BlazorFrontend/Pages/ExportDb.razor]
