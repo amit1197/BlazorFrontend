@@ -1,0 +1,99 @@
+﻿@page "/dbrecovery"
+@inject HttpClient httpClient
+@using BlazorFrontend.Models
+
+
+<h3>DbRecovery</h3>
+
+<button class="btn btn-danger" @onclick="DbRecoveryAsync">Db Recovery</button>
+
+@if (students == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>StudentId</th>
+                <th>Gender</th>
+                <th>NationalIty</th>
+                <th>PlaceofBirth</th>
+                <th>StageId</th>
+                <th>GradeId</th>
+                <th>SectionId</th>
+                <th>Topic</th>
+                <th>Semester</th>
+                <th>Relation</th>
+                <th>Raisedhands</th>
+                <th>VisItedResources</th>
+                <th>AnnouncementsView</th>
+                <th>Discussion</th>
+                <th>ParentAnsweringSurvey</th>
+                <th>ParentschoolSatisfaction</th>
+                <th>StudentAbsenceDays</th>
+                <th>StudentMarks</th>
+                <th>Class</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in students)
+            {
+                <tr>
+                    <td>@student.StudentId</td>
+                    <td>@student.Gender</td>
+                    <td>@student.Nationality</td>
+                    <td>@student.PlaceOfBirth</td>
+                    <td>@student.StageId</td>
+                    <td>@student.GradeId</td>
+                    <td>@student.SectionId</td>
+                    <td>@student.Topic</td>
+                    <td>@student.Semester</td>
+                    <td>@student.Relation</td>
+                    <td>@student.RaisedHands</td>
+                    <td>@student.VisitedResources</td>
+                    <td>@student.AnnouncementsView</td>
+                    <td>@student.Discussion</td>
+                    <td>@student.ParentAnsweringSurvey</td>
+                    <td>@student.ParentSchoolSatisfaction</td>
+                    <td>@student.StudentAbsenceDays</td>
+                    <td>@student.StudentMarks</td>
+                    <td>@student.Class</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+
+    private List<Student> students;
+
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     students = await DbRecoveryAsync();
+    // }
+    private async Task DbRecoveryAsync()
+    {
+        students = await DbRecoveryAsync1();
+    }
+
+    private async Task<List<Student>> DbRecoveryAsync1()
+    {
+        try
+        {
+            var response = await httpClient.GetFromJsonAsync<List<Student>>("http://localhost:5289/api/Recovery/Recovery");
+            return response;
+        }
+        catch (Exception ex)
+        {
+            // Handle error, e.g., log or display an error message
+            return null;
+        }
+    }
+}
+
+
+
