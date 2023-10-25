@@ -1,128 +1,256 @@
 ﻿@page "/addstudent"
 @using BlazorFrontend.Models
+@using System.ComponentModel.DataAnnotations
+@using System.Net.Http
+@inject HttpClient HttpClient
 
 <h3>Add Student</h3>
 
-<form>
+<EditForm Model="student" OnValidSubmit="AddStudentAsync" id="FormPost">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
     <div class="form-group">
         <label for="studentId">Student ID:</label>
-        <input type="text" id="studentId" class="form-control" @bind="student.StudentId" />
+        <input type="text" id="studentId" class="form-control" @bind="student.StudentId"
+               required onerror="This Field is Required" placeholder="Student Id (Required)" />
+        <ValidationMessage For="@(() => student.StudentId)" />
+
     </div>
 
     <div class="form-group">
         <label for="gender">Gender:</label>
         <input type="text" id="gender" class="form-control" @bind="student.Gender" />
+        <ValidationMessage For="@(() => student.Gender)" />
     </div>
+
 
     <div class="form-group">
         <label for="nationality">Nationality:</label>
         <input type="text" id="nationality" class="form-control" @bind="student.Nationality" />
+        <ValidationMessage For="@(() => student.Nationality)" />
     </div>
 
     <div class="form-group">
         <label for="placeOfBirth">Place of Birth:</label>
         <input type="text" id="placeOfBirth" class="form-control" @bind="student.PlaceOfBirth" />
+        <ValidationMessage For="@(() => student.PlaceOfBirth)" />
     </div>
 
     <div class="form-group">
         <label for="stageId">Stage ID:</label>
         <input type="text" id="stageId" class="form-control" @bind="student.StageId" />
+        <ValidationMessage For="@(() => student.StageId)" />
     </div>
 
     <div class="form-group">
         <label for="gradeId">Grade ID:</label>
         <input type="text" id="gradeId" class="form-control" @bind="student.GradeId" />
+        <ValidationMessage For="@(() => student.GradeId)" />
     </div>
 
     <div class="form-group">
         <label for="sectionId">Section ID:</label>
         <input type="text" id="sectionId" class="form-control" @bind="student.SectionId" />
+        <ValidationMessage For="@(() => student.SectionId)" />
     </div>
 
     <div class="form-group">
         <label for="topic">Topic:</label>
         <input type="text" id="topic" class="form-control" @bind="student.Topic" />
+        <ValidationMessage For="@(() => student.Topic)" />
     </div>
 
     <div class="form-group">
         <label for="semester">Semester:</label>
         <input type="text" id="semester" class="form-control" @bind="student.Semester" />
+        <ValidationMessage For="@(() => student.Semester)" />
     </div>
 
     <div class="form-group">
         <label for="relation">Relation:</label>
         <input type="text" id="relation" class="form-control" @bind="student.Relation" />
+        <ValidationMessage For="@(() => student.Relation)" />
     </div>
 
     <div class="form-group">
         <label for="raisedHands">Raised Hands:</label>
         <input type="number" id="raisedHands" class="form-control" @bind="student.RaisedHands" />
+        <ValidationMessage For="@(() => student.RaisedHands)" />
     </div>
 
     <div class="form-group">
         <label for="visitedResources">Visited Resources:</label>
         <input type="number" id="visitedResources" class="form-control" @bind="student.VisitedResources" />
+        <ValidationMessage For="@(() => student.VisitedResources)" />
     </div>
 
     <div class="form-group">
         <label for="announcementsView">Announcements View:</label>
         <input type="number" id="announcementsView" class="form-control" @bind="student.AnnouncementsView" />
+        <ValidationMessage For="@(() => student.AnnouncementsView)" />
     </div>
 
     <div class="form-group">
         <label for="discussion">Discussion:</label>
         <input type="number" id="discussion" class="form-control" @bind="student.Discussion" />
+        <ValidationMessage For="@(() => student.Discussion)" />
     </div>
 
     <div class="form-group">
         <label for="parentAnsweringSurvey">Parent Answering Survey:</label>
         <input type="text" id="parentAnsweringSurvey" class="form-control" @bind="student.ParentAnsweringSurvey" />
+        <ValidationMessage For="@(() => student.ParentAnsweringSurvey)" />
     </div>
 
     <div class="form-group">
         <label for="parentSchoolSatisfaction">Parent School Satisfaction:</label>
         <input type="text" id="parentSchoolSatisfaction" class="form-control" @bind="student.ParentSchoolSatisfaction" />
+        <ValidationMessage For="@(() => student.ParentSchoolSatisfaction)" />
     </div>
 
     <div class="form-group">
         <label for="studentAbsenceDays">Student Absence Days:</label>
         <input type="text" id="studentAbsenceDays" class="form-control" @bind="student.StudentAbsenceDays" />
+        <ValidationMessage For="@(() => student.StudentAbsenceDays)" />
     </div>
 
     <div class="form-group">
         <label for="studentMarks">Student Marks:</label>
         <input type="number" id="studentMarks" class="form-control" @bind="student.StudentMarks" />
+        <ValidationMessage For="@(() => student.StudentMarks)" />
     </div>
 
     <div class="form-group">
         <label for="class">Class:</label>
         <input type="text" id="class" class="form-control" @bind="student.Class" />
+        <ValidationMessage For="@(() => student.Class)" />
     </div>
 
 
-    <button class="btn btn-primary" @onclick="async () => await AddStudentAsync()">Add Student</button>
+
+    <button class="btn btn-primary" type="submit">Add Student</button>
 
 
-</form>
+</EditForm>
+
+
+@if (!string.IsNullOrEmpty(postMessage))
+{
+    <div class="alert alert-success mt-3">@postMessage</div>
+}
+@if (!string.IsNullOrEmpty(validationErrorMessage))
+{
+    <div class="alert alert-danger mt-3">@validationErrorMessage</div>
+}
+
+
+
 
 @code {
+    string validationErrorMessage = "";
+
+    public string postMessage { get; set; }
+
+
     private Student student = new Student();
+
 
     private async Task AddStudentAsync()
     {
-        var httpClient = new HttpClient();
-        var response = await httpClient.PostAsJsonAsync("http://localhost:5289/api/Student/CreateStudent", student);
-
-        if (response.IsSuccessStatusCode)
+        if (string.IsNullOrWhiteSpace(student.Gender))
         {
-            // Handle success, e.g., show a success message or navigate to a different page
+            student.Gender = null;
+        }
+        if (string.IsNullOrWhiteSpace(student.Nationality))
+        {
+            student.Nationality = null;
+        }
+        if (string.IsNullOrWhiteSpace(student.PlaceOfBirth))
+        {
+            student.PlaceOfBirth = null;
+        }
+        if (string.IsNullOrWhiteSpace(student.StageId))
+        {
+            student.StageId = null;
+        }
+        if (string.IsNullOrWhiteSpace(student.GradeId))
+        {
+            student.GradeId = null;
+        }
+        if (string.IsNullOrWhiteSpace(student.SectionId))
+        {
+            student.SectionId = null;
+        }
+        if (string.IsNullOrWhiteSpace(student.Topic))
+        {
+            student.Topic = null;
+        }
+        if (string.IsNullOrWhiteSpace(student.Semester))
+        {
+            student.Semester = null;
+        }
+        if (string.IsNullOrWhiteSpace(student.Relation))
+        {
+            student.Relation = null;
+        }
+        if (string.IsNullOrWhiteSpace(student.ParentAnsweringSurvey))
+        {
+            student.ParentAnsweringSurvey = null;
+        }
+        if (string.IsNullOrWhiteSpace(student.ParentSchoolSatisfaction))
+        {
+            student.ParentSchoolSatisfaction = null;
+        }
+        if (string.IsNullOrWhiteSpace(student.StudentAbsenceDays))
+        {
+            student.StudentAbsenceDays = null;
+        }
+
+        if (student.StudentMarks == null)
+        {
+            student.StudentMarks = null;
+        }
+        if (string.IsNullOrWhiteSpace(student.Class))
+        {
+            student.Class = null;
+        }
+        var validationContext = new ValidationContext(student, null, null);
+        var validationResults = new List<ValidationResult>();
+
+        if (!Validator.TryValidateObject(student, validationContext, validationResults, true))
+        {
+            // validationErrorMessage = "";
+
+            // Concatenate the error messages into a single string
+            foreach (var result in validationResults)
+            {
+                Console.WriteLine($"Validation Error: {result.ErrorMessage}");
+                validationErrorMessage += result.ErrorMessage + " ";
+            }
         }
         else
         {
-            // Handle error, e.g., show an error message
+            var response = await HttpClient.PostAsJsonAsync("http://localhost:5289/api/Student/CreateStudent", student);
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                postMessage = "Student data posted successfully.";
+            }
+            else
+            {
+                postMessage = "Error posting student data. Status Code: " + response.StatusCode;
+            }
         }
+
+
+
+
+
+
+
     }
 
 }
-
 

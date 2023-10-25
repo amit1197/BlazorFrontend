@@ -4,6 +4,324 @@
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
 
+
+<h3>Update Student Data</h3>
+
+
+
+<div class="form-group">
+    <label for="studentId">Enter Student ID:</label>
+    <input type="text" class="form-control" id="studentId" @bind="studentId" placeholder="StudentID must be in STDN00000 format." />
+    <button class="btn btn-primary" @onclick="CheckStudentId">Check Student ID</button>
+</div>
+
+
+
+@if (isStudentIdValid)
+{
+    <EditForm Model="@updatedStudent" OnValidSubmit="UpdateStudents">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label for="studentId">Student ID:</label>
+            <input type="text" class="form-control" id="studentId" @bind="updatedStudent.StudentId" placeholder="Enter Student_ID" disabled />
+            <ValidationMessage For="@(() => updatedStudent.StudentId)" />
+        </div>
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            <input type="text" class="form-control" @bind="updatedStudent.Gender" placeholder="Enter Gender" required />
+            <ValidationMessage For="@(() => updatedStudent.Gender)" />
+
+
+        </div>
+
+        <div class="form-group">
+            <label for="Nationlity">Nationlity</label>
+            <input type="text" name="Nationlity" class="form-control" id="Nationlity" @bind="updatedStudent.Nationality"
+                   placeholder="Enter Nationlity" required />
+            <ValidationMessage For="@(() => updatedStudent.Nationality)" />
+
+        </div>
+
+        <div class="form-group">
+            <label for="PlaceOfBirth">PlaceOfBirth</label>
+            <input type="text" name="PlaceOfBirth" class="form-control" id="PlaceOfBirth" @bind="updatedStudent.PlaceOfBirth"
+                   placeholder="Enter PlaceOfBirth" required />
+            <ValidationMessage For="@(() => updatedStudent.PlaceOfBirth)" />
+
+        </div>
+
+        <div class="form-group">
+            <label for="StageId">StageId</label>
+            <input type="text" name="StageId" class="form-control" id="StageId" @bind="updatedStudent.StageId" placeholder="Enter StageId" required />
+            <ValidationMessage For="@(() => updatedStudent.StageId)" />
+
+        </div>
+        <div class="form-group">
+            <label for="GradeId">GradeId</label>
+            <input required type="text" name="GradeId" class="form-control" id="GradeId" @bind="updatedStudent.GradeId" placeholder="Enter GradeId" />
+            <ValidationMessage For="@(() => updatedStudent.GradeId)" />
+
+        </div>
+
+        <div class="form-group">
+            <label for="SectionId">SectionId</label>
+            <input required type="text" name="SectionId" class="form-control" id="SectionId" @bind="updatedStudent.SectionId"
+                   placeholder="Enter SectionId" />
+            <ValidationMessage For="@(() => updatedStudent.SectionId)" />
+
+        </div>
+
+        <div class="form-group">
+            <label for="Topic">Topic</label>
+            <input required type="text" name="Topic" class="form-control" id="Topic" @bind="updatedStudent.Topic" placeholder="Enter Topic" />
+            <ValidationMessage For="@(() => updatedStudent.Topic)" />
+
+        </div>
+        <div class="form-group">
+            <label for="Semester">Semester </label>
+            <input required type="text" name="Semester" class="form-control" id="Semester" @bind="updatedStudent.Semester"
+                   placeholder="Enter Semester" />
+            <ValidationMessage For="@(() => updatedStudent.Semester)" />
+
+        </div>
+
+        <div class="form-group">
+            <label for="Relation">Relation</label>
+            <input required type="text" name="Relation" class="form-control" id="Relation" @bind="updatedStudent.Relation"
+                   placeholder="Enter Relation" />
+            <ValidationMessage For="@(() => updatedStudent.Relation)" />
+
+        </div>
+
+        <div class="form-group">
+            <label for="RaisedHands">RaisedHands</label>
+            <input required type="text" name="RaisedHands" class="form-control" id="RaisedHands" @bind="updatedStudent.RaisedHands"
+                   placeholder="Enter RaisedHands" />
+            <ValidationMessage For="@(() => updatedStudent.RaisedHands)" />
+
+        </div>
+
+        <div class="form-group">
+            <label for="VisitedResources">VisitedResources</label>
+            <input required type="text" name="VisitedResources" class="form-control" id="VisitedResources" @bind="updatedStudent.VisitedResources"
+                   placeholder="Enter VisitedResources" />
+            <ValidationMessage For="@(() => updatedStudent.VisitedResources)" />
+
+        </div>
+
+        <div class="form-group">
+            <label for="AnnouncementsView">AnnouncementsView</label>
+            <input required type="text" name="AnnouncementsView" class="form-control" id="AnnouncementsView" @bind="updatedStudent.AnnouncementsView"
+                   placeholder="Enter AnnouncementsView" />
+            <ValidationMessage For="@(() => updatedStudent.AnnouncementsView)" />
+
+        </div>
+
+        <div class="form-group">
+            <label for="Discussion ">Discussion</label>
+            <input required type="text" name="Discussion" class="form-control" id="Discussion" @bind="updatedStudent.Discussion"
+                   placeholder="Enter Discussion" />
+            <ValidationMessage For="@(() => updatedStudent.Discussion)" />
+
+        </div>
+
+        <div class="form-group">
+            <label for="ParentAnsweringSurvey">ParentAnsweringSurvey</label>
+            <input required type="text" name="ParentAnsweringSurvey" class="form-control" id="ParentAnsweringSurvey" @bind="updatedStudent.ParentAnsweringSurvey"
+                   placeholder="Enter ParentAnsweringSurvey" />
+            <ValidationMessage For="@(() => updatedStudent.ParentAnsweringSurvey)" />
+
+        </div>
+
+        <div class="form-group">
+            <label for="ParentschoolSatisfaction">ParentschoolSatisfaction</label>
+            <input required type="text" name="ParentschoolSatisfaction" class="form-control"
+                   id="ParentschoolSatisfaction" @bind="updatedStudent.ParentSchoolSatisfaction" placeholder="Enter ParentschoolSatisfaction" />
+            <ValidationMessage For="@(() => updatedStudent.ParentSchoolSatisfaction)" />
+
+        </div>
+
+        <div class="form-group">
+            <label for="StudentAbsenceDays ">StudentAbsenceDays </label>
+            <input required type="text" name="StudentAbsenceDays" class="form-control" id="StudentAbsenceDays" @bind="updatedStudent.StudentAbsenceDays"
+                   placeholder="Enter StudentAbsenceDays" />
+            <ValidationMessage For="@(() => updatedStudent.StudentAbsenceDays)" />
+
+        </div>
+
+        <div class="form-group">
+            <label for="StudentMarks ">StudentMarks </label>
+            <input required type="text" name="StudentMarks" class="form-control" id="StudentMarks" @bind="updatedStudent.StudentMarks"
+                   placeholder="Enter StudentMarks" />
+            <ValidationMessage For="@(() => updatedStudent.StudentMarks)" />
+
+        </div>
+
+        <div class="form-group">
+            <label for="Classes">Classes</label>
+            <input type="text" name="Classes" class="form-control" id="Classes" @bind="updatedStudent.Class" placeholder="Enter Classes" />
+            <ValidationMessage For="@(() => updatedStudent.Class)" />
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+    </EditForm>
+}
+else if (showErrorMessage)
+{
+    <div class="alert alert-danger mt-3">Invalid Student ID. Please check and try again.</div>
+}
+
+
+
+@if (!string.IsNullOrEmpty(updateMessage))
+{
+    <div class="alert alert-success mt-3">@updateMessage</div>
+}
+
+
+
+@code {
+    public Student updatedStudent { get; set; } = new Student();
+    public string updateMessage { get; set; }
+    public string studentId { get; set; }
+    public bool isStudentIdValid { get; set; } = false;
+    public bool showErrorMessage { get; set; } = false;
+
+
+
+    private async Task CheckStudentId()
+    {
+        if (string.IsNullOrWhiteSpace(updatedStudent.Gender))
+        {
+            updatedStudent.Gender = null;
+        }
+        if (string.IsNullOrWhiteSpace(updatedStudent.Nationality))
+        {
+            updatedStudent.Nationality = null;
+        }
+        if (string.IsNullOrWhiteSpace(updatedStudent.PlaceOfBirth))
+        {
+            updatedStudent.PlaceOfBirth = null;
+        }
+        if (string.IsNullOrWhiteSpace(updatedStudent.StageId))
+        {
+            updatedStudent.StageId = null;
+        }
+        if (string.IsNullOrWhiteSpace(updatedStudent.GradeId))
+        {
+            updatedStudent.GradeId = null;
+        }
+        if (string.IsNullOrWhiteSpace(updatedStudent.SectionId))
+        {
+            updatedStudent.SectionId = null;
+        }
+        if (string.IsNullOrWhiteSpace(updatedStudent.Topic))
+        {
+            updatedStudent.Topic = null;
+        }
+        if (string.IsNullOrWhiteSpace(updatedStudent.Semester))
+        {
+            updatedStudent.Semester = null;
+        }
+        if (string.IsNullOrWhiteSpace(updatedStudent.Relation))
+        {
+            updatedStudent.Relation = null;
+        }
+        if (string.IsNullOrWhiteSpace(updatedStudent.ParentAnsweringSurvey))
+        {
+            updatedStudent.ParentAnsweringSurvey = null;
+        }
+        if (string.IsNullOrWhiteSpace(updatedStudent.ParentSchoolSatisfaction))
+        {
+            updatedStudent.ParentSchoolSatisfaction = null;
+        }
+        if (string.IsNullOrWhiteSpace(updatedStudent.StudentAbsenceDays))
+        {
+            updatedStudent.StudentAbsenceDays = null;
+        }
+
+        if (updatedStudent.StudentMarks == null)
+        {
+            updatedStudent.StudentMarks = null;
+        }
+        if (string.IsNullOrWhiteSpace(updatedStudent.Class))
+        {
+            updatedStudent.Class = null;
+        }
+        // Assume GetStudentFromApi is a method that fetches student data from your API
+        var student = await GetStudentFromApi(studentId);
+
+
+
+        if (student != null)
+        {
+            updatedStudent = student;
+            isStudentIdValid = true;
+            showErrorMessage = false;
+        }
+        else
+        {
+            isStudentIdValid = false;
+            showErrorMessage = true;
+        }
+    }
+
+
+
+    private async Task UpdateStudents()
+    {
+        try
+        {
+            var response = await HttpClient.PutAsJsonAsync($"http://localhost:5289/api/Student/UpdateStudent/{updatedStudent.StudentId}", updatedStudent);
+            if (response.IsSuccessStatusCode)
+            {
+                updateMessage = "Student data updated successfully.";
+            }
+            else
+            {
+                updateMessage = "Error updating student data.";
+            }
+        }
+        catch (Exception ex)
+        {
+            updateMessage = "An error occurred: " + ex.Message;
+        }
+    }
+
+
+
+    // Example of GetStudentFromApi method
+    private async Task<Student> GetStudentFromApi(string studentId)
+    {
+        try
+        {
+            var response = await HttpClient.GetAsync($"http://localhost:5289/api/Student/FindById?id={studentId}");
+
+
+            if (response.IsSuccessStatusCode)
+            {
+                var student = await response.Content.ReadFromJsonAsync<Student>();
+                return student;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle exceptions (e.g., network error, API error)
+            return null;
+        }
+    }
+}@* @page "/updatestudent"
+@using BlazorUI.Models
+@using System.Net.Http.Json
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+
 <h3>Update Student</h3>
 
 <div class="form-group">
@@ -130,7 +448,7 @@ else if (isStudentNotFound)
         {
             try
             {
-                student = await HttpClient.GetFromJsonAsync<Student>($"http://localhost:5289/api/Student/FindById?id={student.StudentId}");
+                student = await HttpClient.GetFromJsonAsync<Student>($"https://localhost:7078/api/Student/FindById?id={student.StudentId}");
                 if (student == null)
                 {
                     isStudentNotFound = true;
@@ -150,7 +468,7 @@ else if (isStudentNotFound)
         {
             try
             {
-                var response = await HttpClient.PutAsJsonAsync($"http://localhost:5289/api/Student/UpdateStudent/{ student.StudentId}", student);
+                var response = await HttpClient.PutAsJsonAsync($"https://localhost:7078/api/Student/UpdateStudent/{student.StudentId}", student);
                 if (response.IsSuccessStatusCode)
                 {
                     NavigationManager.NavigateTo("/fetchstudents");
@@ -174,3 +492,4 @@ else if (isStudentNotFound)
     }
 }
 
+ *@
